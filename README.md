@@ -99,7 +99,40 @@
     ```
 
 ## 프로젝트 설명
+#### directory 구조
+```
+com.nfs.front/
+          ├── NotificationFrontServerApplication.java
+          ├── controller/
+          │   └── NotificationLogController.java
+          │   └── NotificationController.java  
+          ├── service/
+          │   └── NotificationService.java
+          │   └── Service....
+          ├── repository/
+          │   └── NotificationRepository.java
+          ├── model/
+          │   └── Notification.java....
+          ├── sender/
+          │   └── 알림 발송 Sender 구현 (SMS,KakaoTalk,Email)
+          ├── job/
+          │   └── 로그 삭제 배치, 실패 알림 재 발송 배치, 예약 알림 배치 구현 
+          └── config/
+              └── WebClientConfig.java,ObjectMapperConfig,,,
+```
 
+#### Table 구조 
+![img_1.png](img_1.png)
+
+* 알림 등록 시 Notifications table에 등록
+* 즉시 발송일 경우 바로 발송
+* 예약 발송일 경우 NotificationItems에 item을 등록
+* 1분마다 batch job을 실행시켜 현재 시간에 보내야할 알림을 발송
+* 발송 성공, 실패 로그를 NotificationLogs, NotificationFailLogs 테이블에 각각 등록
+* 실패의 경우, 배치 job으로 NotificationFailLogs를 조회하여 retry
+* Member 정보는 data.sql에 초기데이터를 입력. Members Table에 발송정보들이 존재한다고 가정
+
+#### 신경써서 구현한 부분
 
 
 ## 빌드 결과물 다운로드 링크 
