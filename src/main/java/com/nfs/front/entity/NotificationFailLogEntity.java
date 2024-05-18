@@ -5,6 +5,8 @@ import com.nfs.front.model.SenderType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +32,18 @@ public class NotificationFailLogEntity {
 
     @Column(name = "sender_type")
     private SenderType senderType;
+
+    @ManyToOne
+    @JoinColumn(name = "notification_id", insertable = false, updatable = false)
+    private NotificationEntity notificationEntity;
+
+    public NotificationFailLogEntity(Long notificationFailLogId, Long notificationId, LocalDateTime failedAt, SenderType senderType) {
+        this.notificationFailLogId = notificationFailLogId;
+        this.notificationId = notificationId;
+        this.senderType = senderType;
+        this.failedAt = failedAt;
+    }
+
 
     public static NotificationFailLogEntity newInstance(Long notificationId, LocalDateTime failedAt, SenderType senderType) {
         return new NotificationFailLogEntity(IdGenerator.generate(), notificationId, failedAt, senderType);

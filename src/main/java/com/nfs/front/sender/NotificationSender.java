@@ -38,6 +38,15 @@ public abstract class NotificationSender {
     }
 
     public void sendMessageAndCreateLog(SenderType senderType, Message message, Notification notification) {
+        log.info("send Message type : {} , notificationId : {}", senderType.name(), notification.notificationId());
+        Mono<ResultCode> mono = getResultCodeMono(senderType, message);
+        mono.subscribe(resultCode -> {
+            log.info("send result : {}", resultCode.name());
+            notificationLogService.createNotificationLog(notification.notificationId(), LocalDateTime.now(), senderType, resultCode);
+        });
+    }
+
+    private Mono<ResultCode> getResultCodeMono(SenderType senderType, Message message) {
         URI uri = UriComponentsBuilder.fromPath(senderType.getPath())
                                       .scheme("http").host(host).port(port)
                                       .build().toUri();
@@ -49,12 +58,17 @@ public abstract class NotificationSender {
                                          .bodyToMono(RESPONSE_PARAMETERIZED_TYPE_REFERENCE)
                                          .map(Response::resultCode)
                                          .onErrorReturn(ResultCode.FAIL);
-
-
-        mono.subscribe(resultCode -> {
-            notificationLogService.createNotificationLog(notification.notificationId(), LocalDateTime.now(), senderType, resultCode);
-        });
+        return mono;
     }
 
+    public boolean retrySendMessage(SenderType senderType, Message message, Notification notification, Long notificationFailLogId) {
+        log.info("retry send Message type : {} , notificationFailLogId : {}", senderType.name(), notificationFailLogId);
+        Mono<ResultCode> mono = getResultCodeMono(senderType, message);
+        ResultCode resultCode = mono.block();
 
+        if (resultCode == ResultCode.SUCCESS) {
+            notificationLogService.createRetrySuccessLog(notification.notificationId(), LocalDateTime.now(), senderType, notificationFailLogId);
+        }
+        return resultCode == ResultCode.SUCCESS;
+    }
 }

@@ -13,13 +13,20 @@ public enum NotificationType {
 
     private Integer value;
 
+
     NotificationType(Integer value) {
         this.value = value;
     }
 
-    @JsonValue
+
     public int getValue() {
         return value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return name().toLowerCase();
     }
 
     public static NotificationType valueOf(Integer value) {

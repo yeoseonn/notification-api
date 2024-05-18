@@ -35,15 +35,21 @@ public class NotificationLogService {
     public void createNotificationLog(Long notificationId, LocalDateTime sentAt, SenderType senderType, ResultCode resultCode) {
         if (resultCode == ResultCode.SUCCESS) {
             createNotificationSuccessLog(notificationId, sentAt, senderType);
+        } else {
+            createNotificationFailLog(notificationId, sentAt, senderType);
         }
-        createNotificationFailLog(notificationId, sentAt, senderType);
+    }
+
+
+    @Transactional
+    public void createRetrySuccessLog(Long notificationId, LocalDateTime sentAt, SenderType senderType, Long notificationFailLogId) {
+        createNotificationSuccessLog(notificationId, sentAt, senderType);
     }
 
     private void createNotificationSuccessLog(Long notificationId, LocalDateTime sentAt, SenderType senderType) {
         NotificationLogEntity notificationLogEntity = NotificationLogEntity.newInstance(notificationId, sentAt, senderType);
         notificationLogRepository.save(notificationLogEntity);
     }
-
 
     private void createNotificationFailLog(Long notificationId, LocalDateTime sentAt, SenderType senderType) {
         NotificationFailLogEntity notificationFailLogEntity = NotificationFailLogEntity.newInstance(notificationId, sentAt, senderType);

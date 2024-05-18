@@ -21,4 +21,10 @@ public class SMSNotificationSender extends NotificationSender implements Sendabl
         SMS sms = new SMS(member.phoneNumber(), notification.title(), notification.content());
         sendMessageAndCreateLog(SenderType.SMS, sms, notification);
     }
+
+    @Override
+    public boolean retry(Member member, Notification notification, Long notificationFailLogId) {
+        SMS sms = new SMS(member.phoneNumber(), notification.title(), notification.content());
+        return retrySendMessage(SenderType.SMS, sms, notification, notificationFailLogId);
+    }
 }

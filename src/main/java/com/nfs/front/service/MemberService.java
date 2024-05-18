@@ -18,7 +18,7 @@ public class MemberService {
     public Member getMemberById(Long memberId) {
         MemberEntity member = memberRepository.findById(memberId).orElse(null);
         if (Objects.isNull(member)) {
-            throw new ApiFailedException(ErrorCode.USER_INVALID_ERROR, "cannot find member Id : " + memberId);
+            throw new ApiFailedException(ErrorCode.RESOURCE_NOT_FOUND, "cannot find member Id : " + memberId);
         }
         return Member.of(member);
     }

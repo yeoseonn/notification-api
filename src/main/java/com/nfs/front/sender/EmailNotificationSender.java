@@ -22,4 +22,10 @@ public class EmailNotificationSender extends NotificationSender implements Senda
         Email email = new Email(member.emailAddress(), notification.title(), notification.content());
         sendMessageAndCreateLog(SenderType.EMAIL, email, notification);
     }
+
+    @Override
+    public boolean retry(Member member, Notification notification, Long notificationFailLogId) {
+        Email email = new Email(member.emailAddress(), notification.title(), notification.content());
+        return retrySendMessage(SenderType.EMAIL, email, notification, notificationFailLogId);
+    }
 }

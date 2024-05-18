@@ -25,7 +25,7 @@ public class NotificationService {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional
-    public void registerNotification(NotificationRequest notificationRequest) {
+    public Notification registerNotification(NotificationRequest notificationRequest) {
         Member member = memberService.getMemberById(notificationRequest.memberId());
         NotificationEntity notificationEntity = notificationRepository.save(NotificationEntity.newInstance(notificationRequest));
 
@@ -34,5 +34,6 @@ public class NotificationService {
         } else {
             notificationItemRepository.save(NotificationItemEntity.newInstance(notificationEntity));
         }
+        return Notification.of(notificationEntity);
     }
 }

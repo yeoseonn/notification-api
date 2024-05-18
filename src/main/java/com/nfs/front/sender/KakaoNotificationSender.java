@@ -19,4 +19,10 @@ public class KakaoNotificationSender extends NotificationSender implements Senda
         KakaoTalk kakaoTalk = new KakaoTalk(member.talkId(), notification.title(), notification.content());
         sendMessageAndCreateLog(SenderType.KAKAO_TALK, kakaoTalk, notification);
     }
+
+    @Override
+    public boolean retry(Member member, Notification notification, Long notificationFailLogId) {
+        KakaoTalk kakaoTalk = new KakaoTalk(member.talkId(), notification.title(), notification.content());
+        return retrySendMessage(SenderType.KAKAO_TALK, kakaoTalk, notification, notificationFailLogId);
+    }
 }
