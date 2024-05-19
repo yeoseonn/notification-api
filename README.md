@@ -140,3 +140,4 @@ com.nfs.front/
 * 실패했을 경우 성공할때 까지 Retry 하도록 구현하였으며, 기존 Logs table과 분리함으로써 조회성능을 고려하여 구현
 
 ## 빌드 결과물 다운로드 링크 
+[다운로드 JAR 파일](https://github.com/yeoseonn/20240520_2299-000143/releases/download/v1.0/notification-front-server-0.0.1-SNAPSHOT.jar)
