@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CompositeSenderTest {
-    EmailNotificationSender emailNotificationSender;
-    SMSNotificationSender smsNotificationSender;
-    KakaoNotificationSender kakaoNotificationSender;
+    private EmailNotificationSender emailNotificationSender;
+    private SMSNotificationSender smsNotificationSender;
+    private KakaoNotificationSender kakaoNotificationSender;
 
-    CompositeSender compositeSender;
+    private CompositeSender compositeSender;
 
     @BeforeEach
     void setUp() {

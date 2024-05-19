@@ -41,7 +41,7 @@ public abstract class NotificationSender {
         log.info("send Message type : {} , notificationId : {}", senderType.name(), notification.notificationId());
         Mono<ResultCode> mono = getResultCodeMono(senderType, message);
         mono.subscribe(resultCode -> {
-            log.info("send result : {}", resultCode.name());
+            log.info("send result : {}, notificationId : {}, senderType : {}", resultCode, notification.notificationId(), senderType.name());
             notificationLogService.createNotificationLog(notification.notificationId(), LocalDateTime.now(), senderType, resultCode);
         });
     }
@@ -65,6 +65,7 @@ public abstract class NotificationSender {
         log.info("retry send Message type : {} , notificationFailLogId : {}", senderType.name(), notificationFailLogId);
         Mono<ResultCode> mono = getResultCodeMono(senderType, message);
         ResultCode resultCode = mono.block();
+        log.info("send result : {}, notificationId : {}, senderType : {}", resultCode, notification.notificationId(), senderType.name());
 
         if (resultCode == ResultCode.SUCCESS) {
             notificationLogService.createRetrySuccessLog(notification.notificationId(), LocalDateTime.now(), senderType, notificationFailLogId);

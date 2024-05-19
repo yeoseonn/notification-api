@@ -21,7 +21,7 @@
     {
         "memberId": 1004,
         "type": "scheduled",
-        "time" : "2024-05-20 11:00:00",
+        "time" : "2024-05-20T11:00:00", //yyyy-MM-ddTHH:mm:ss 형식
         "title":"test",
         "content": "알림"
     }

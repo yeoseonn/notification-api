@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -36,13 +35,13 @@ class NotificationLogControllerTest {
 
     private MockMvc mockMvc;
     @Mock
-    NotificationLogService notificationLogService;
+    private NotificationLogService notificationLogService;
 
     @InjectMocks
-    NotificationLogController notificationLogController;
+    private NotificationLogController notificationLogController;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
@@ -70,7 +69,6 @@ class NotificationLogControllerTest {
                .andExpect(MockMvcResultMatchers.jsonPath("$.header.isSuccessful").value(true))
                .andExpect(MockMvcResultMatchers.jsonPath("$.totalCount").value(notificationLogs.getTotalElements()))
                .andExpect(MockMvcResultMatchers.jsonPath("$.result[0].memberId").value(memberId));
-
 
 
     }

@@ -21,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class NotificationServiceTest {
-    NotificationRepository notificationRepository;
-    NotificationItemRepository notificationItemRepository;
-    MemberService memberService;
-    ApplicationEventPublisher applicationEventPublisher;
+    private NotificationRepository notificationRepository;
+    private NotificationItemRepository notificationItemRepository;
+    private MemberService memberService;
+    private ApplicationEventPublisher applicationEventPublisher;
 
-    NotificationService notificationService;
+    private NotificationService notificationService;
 
     Member member;
 

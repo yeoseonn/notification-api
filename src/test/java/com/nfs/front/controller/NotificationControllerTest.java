@@ -29,13 +29,13 @@ import static org.mockito.Mockito.*;
 class NotificationControllerTest {
     private MockMvc mockMvc;
     @Mock
-    NotificationService notificationService;
+    private NotificationService notificationService;
 
     @InjectMocks
-    NotificationController notificationController;
+    private NotificationController notificationController;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {

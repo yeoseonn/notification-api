@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class MemberServiceTest {
-    MemberRepository memberRepository;
-    MemberService memberService;
+    private MemberRepository memberRepository;
+    private MemberService memberService;
 
     @BeforeEach
     void setUp() {
