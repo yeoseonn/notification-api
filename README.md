@@ -133,6 +133,10 @@ com.nfs.front/
 * Member 정보는 data.sql에 초기데이터를 입력. Members Table에 발송정보들이 존재한다고 가정
 
 #### 신경써서 구현한 부분
-
+* Sender가 추가될 확장 가능성을 고려하여 구현
+  * CompositeSender 내부에서 Sendable 인터페이스를 관리
+  * Sendable 인터페이스를 구현한 클래스 : KakaoNotificationSender,EmailNotificationSender,SMSNotificationSender
+  * NotificaionSender abstract class에 (공통 기능)발송 기능 구현
+* 실패했을 경우 성공할때 까지 Retry 하도록 구현하였으며, 기존 Logs table과 분리함으로써 조회성능을 고려하여 구현
 
 ## 빌드 결과물 다운로드 링크 
